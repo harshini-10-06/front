@@ -1,0 +1,108 @@
+/* ===== Global Styles ===== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 30px;
+    color: #2c3e50;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #1f5f8b;
+}
+
+/* ===== Cards ===== */
+.cards, .container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 220px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* ===== Sections ===== */
+.section, .courses {
+    background: white;
+    margin: 40px auto;
+    padding: 20px;
+    width: 70%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== Course List ===== */
+.course, .course-box {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.course-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===== Buttons ===== */
+button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1f5f8b;
+}
+
+/* Delete Button */
+button.delete {
+    background-color: #e74c3c;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+}
+
+/* ===== Inputs ===== */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ===== Images ===== */
+img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ===== Footer Links ===== */
+.back-link {
+    text-align: center;
+    margin-top: 30px;
+}
