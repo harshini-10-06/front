@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .courses {
+            background: white;
+            margin: 40px auto;
+            padding: 20px;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .course {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Student Dashboard</h1>
+
+<div class="stats">
+    <div class="card">
+        <h3>Enrolled Courses</h3>
+        <p id="courseCount">0</p>
+    </div>
+    <div class="card">
+        <h3>Quizzes Completed</h3>
+        <p>2</p>
+    </div>
+    <div class="card">
+        <h3>Progress</h3>
+        <p>70%</p>
+    </div>
+</div>
+
+<div class="courses">
+    <h2>My Courses</h2>
+    <div id="courseList">Loading courses...</div>
+</div>
+
+<div style="text-align:center">
+    <a href="index.html">Back to Home</a>
+</div>
+
+<script>
+    // 🔗 Fetch courses from backend
+    fetch("https://YOUR-BACKEND-URL.onrender.com/courses")
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("courseList");
+            const count = document.getElementById("courseCount");
+            list.innerHTML = "";
+            count.innerText = data.length;
+
+            data.forEach(course => {
+                const div = document.createElement("div");
+                div.className = "course";
+                div.innerText = course.title;
+                list.appendChild(div);
+            });
+        })
+        .catch(err => {
+            document.getElementById("courseList").innerText =
+                "Unable to load courses ❌";
+        });
+</script>
+
+</body>
+</html>
