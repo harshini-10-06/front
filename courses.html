@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .course-box {
+            background: white;
+            padding: 15px;
+            margin: 15px auto;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Course Management</h1>
+
+<div id="courseList">Loading courses...</div>
+
+<a href="instructor.html">⬅ Back to Instructor Dashboard</a>
+
+<script>
+    const API = "https://YOUR-BACKEND-URL.onrender.com";
+
+    function loadCourses() {
+        fetch(API + "/courses")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("courseList");
+                list.innerHTML = "";
+
+                data.forEach(course => {
+                    const div = document.createElement("div");
+                    div.className = "course-box";
+
+                    div.innerHTML = `
+                        <span>${course.title}</span>
+                        <button onclick="deleteCourse('${course._id || ""}')">Delete</button>
+                    `;
+                    list.appendChild(div);
+                });
+            })
+            .catch(() => {
+                document.getElementById("courseList").innerText =
+                    "Unable to load courses ❌";
+            });
+    }
+
+    function deleteCourse(id) {
+        if (!id) {
+            alert("Delete demo only (no DB ID)");
+            return;
+        }
+        fetch(API + "/courses/" + id, {
+            method: "DELETE"
+        })
+        .then(() => loadCourses());
+    }
+
+    loadCourses();
+</script>
+
+</body>
+</html>
