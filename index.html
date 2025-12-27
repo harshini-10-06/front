@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini LMS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            width: 260px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        #status {
+            margin-top: 30px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Multi-Tenant Learning Management System</h1>
+<p>Select your role</p>
+
+<div class="container">
+
+    <div class="card">
+        <img src="ppt.jpeg" alt="Student">
+        <a href="student.html">Student Dashboard</a>
+    </div>
+
+    <div class="card">
+        <img src="ppt.jpeg" alt="Instructor">
+        <a href="instructor.html">Instructor Dashboard</a>
+    </div>
+
+</div>
+
+<p id="status">Checking backend connection...</p>
+
+<script>
+    // 🔗 BACKEND CONNECTION TEST
+    fetch("https://YOUR-BACKEND-URL.onrender.com/")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("status").innerText =
+                "Backend Connected Successfully ✅";
+        })
+        .catch(err => {
+            document.getElementById("status").innerText =
+                "Backend Not Connected ❌";
+        });
+</script>
+
+</body>
+</html>
