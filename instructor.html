@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .section {
+            background: white;
+            margin: 40px auto;
+            padding: 20px;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        button {
+            background: #2980b9;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .course {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Instructor Dashboard</h1>
+
+<div class="stats">
+    <div class="card">
+        <h3>Total Courses</h3>
+        <p id="courseCount">0</p>
+    </div>
+    <div class="card">
+        <h3>Total Students</h3>
+        <p>120</p>
+    </div>
+    <div class="card">
+        <h3>Quizzes Created</h3>
+        <p>15</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Create New Course</h2>
+    <input type="text" id="courseTitle" placeholder="Course Title">
+    <button onclick="addCourse()">Add Course</button>
+    <p id="msg"></p>
+</div>
+
+<div class="section">
+    <h2>My Courses</h2>
+    <div id="courseList">Loading courses...</div>
+</div>
+
+<div style="text-align:center">
+    <a href="index.html">Back to Home</a>
+</div>
+
+<script>
+    const API = "https://YOUR-BACKEND-URL.onrender.com";
+
+    // 🔹 Load courses
+    function loadCourses() {
+        fetch(API + "/courses")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("courseList");
+                const count = document.getElementById("courseCount");
+                list.innerHTML = "";
+                count.innerText = data.length;
+
+                data.forEach(course => {
+                    const div = document.createElement("div");
+                    div.className = "course";
+                    div.innerText = course.title;
+                    list.appendChild(div);
+                });
+            })
+            .catch(() => {
+                document.getElementById("courseList").innerText =
+                    "Unable to load courses ❌";
+            });
+    }
+
+    // 🔹 Add new course
+    function addCourse() {
+        const title = document.getElementById("courseTitle").value;
+        if (!title) return;
+
+        fetch(API + "/courses", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title })
+        })
+        .then(res => res.json())
+        .then(() => {
+            document.getElementById("msg").innerText = "Course added ✅";
+            document.getElementById("courseTitle").value = "";
+            loadCourses();
+        })
+        .catch(() => {
+            document.getElementById("msg").innerText = "Error adding course ❌";
+        });
+    }
+
+    loadCourses();
+</script>
+
+</body>
+</html>
